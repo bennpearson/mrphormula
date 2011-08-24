@@ -35,12 +35,28 @@
 
   <div id="container">
     <header>
-
+		<?php include("masthead.php"); ?>
     </header>
     <div id="main" role="main">
     
     
-Welcome to homepage2
+ <h1>Welcome <?php echo $v1; ?></h1>
+<p>Codeigniter</p>
+
+<ul>
+	<?php foreach($row as $user): ?>
+		<li><?php echo $user; ?></li>
+	<?php endforeach; ?>
+</ul>
+
+<p>production</p>
+
+<ul>
+	<?php foreach($production as $entry): ?>
+		<li><a href="/homepage/production/<?php echo $entry->slug; ?>"><?php echo $entry->slug; ?></a></li>
+	<?php endforeach; ?>
+</ul>   
+    
 
     </div>
     <footer>

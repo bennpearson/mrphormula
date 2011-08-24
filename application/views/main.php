@@ -21,7 +21,7 @@
 
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
 
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="../css/style.css">
   
   <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
 
@@ -35,27 +35,9 @@
 
   <div id="container">
     <header>
-
+     <?php include("masthead.php"); ?>
     </header>
     <div id="main" role="main">
-    
-    
- <h1>Welcome <?php echo $v1; ?></h1>
-<p>Codeigniter</p>
-
-<ul>
-	<?php foreach($row as $user): ?>
-		<li><?php echo $user; ?></li>
-	<?php endforeach; ?>
-</ul>
-
-<p>Blog</p>
-
-<ul>
-	<?php foreach($blog as $entry): ?>
-		<li><a href="/homepage/blog/<?php echo $entry->slug; ?>"><?php echo $entry->slug; ?></a></li>
-	<?php endforeach; ?>
-</ul>   
     
 
     </div>

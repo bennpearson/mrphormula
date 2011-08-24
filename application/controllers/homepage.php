@@ -5,7 +5,7 @@ class Homepage extends CI_Controller {
 
 	public function index()
 	{
-		$this->load->view('homepage2');
+		$this->load->view('main');
 	}
 	
 	public function world($name = 'Person')
@@ -21,23 +21,42 @@ class Homepage extends CI_Controller {
 		'benn'
 		);
 
-        $this->load->model('blog' , '', TRUE);
-        $data['blog'] = $this->blog->get_last_ten_entries();
-        $this->load->view('homepage' , $data);
+        $this->load->model('production' , '', TRUE);
+        $data['production'] = $this->production->get_last_ten_entries();
+        $this->load->view('productions' , $data);
 	}
 
 	
 	
-		public function blog($slug = null)
+		public function production($slug = null)
 	{
 		if (empty($slug))
 		{
 		echo 'need slug';
 		exit;
 		}
-		$this->load->model('blog' , '', TRUE);
-		$data['entry'] = $this->blog->get_entry($slug);
-		$this->load->view('blog_entry' , $data);
+		$this->load->model('production' , '', TRUE);
+		$data['entry'] = $this->production->get_entry($slug);
+		$this->load->view('production_entry' , $data);
+	}
+	
+	
+	public function archives($name = 'Person')
+	{	
+		$data['v1'] = $name;
+		$data['row'] = array(	
+		'aled',
+		'ed',
+		'richie',
+		'robert',
+		'paul',
+		'liam',
+		'benn'
+		);
+
+        $this->load->model('archive' , '', TRUE);
+        $data['video'] = $this->archive->get_last_ten_entries();
+        $this->load->view('archives' , $data);
 	}
 	
 }

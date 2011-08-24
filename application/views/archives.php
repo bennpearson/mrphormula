@@ -39,8 +39,17 @@
     </header>
     <div id="main" role="main">
     
+        
+        <h1>Archives</h1>
+        <h2>Tags</h2>
+        
+        <ul class="tags">
+			<?php foreach($video as $entry): ?>
+            <li><a href="/homepage/archive/<?php echo $entry->filename; ?>"><?php echo $entry->filename; ?></a></li>
+            <?php endforeach; ?>
+        </ul> 
+
     
-Welcome to homepage2
 
     </div>
     <footer>
