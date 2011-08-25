@@ -19,3 +19,4 @@ CVS
 
 database.php
 config.php
+application/config/config.php
