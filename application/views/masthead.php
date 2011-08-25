@@ -1,8 +1,11 @@
-<h1>Logo</h1>
-        <ul class="navigation">
-    <li><a href="" title="/">Home</a></li>
-    <li><a href="" title="/productions/">Productions</a></li>
-    <li><a href="" title="/productions/">Archives</a></li>
-    <li><a href="" title="/productions/">About</a></li>
-    <li><a href="" title="/productions/">Contact</a></li>
-</ul>
+<nav>
+	<div id="logo" class="grid_4 alpha" >
+		<h1>Logo</h1>
+	</div>
+	<ul>
+        <li class="grid_2"><a href="http://localhost:8888/" title="Home">Home</a></li>
+        <li class="grid_2"><a href="http://localhost:8888/homepage/assets" title="Assets">Assets</a></li>
+        <li class="grid_2"><a href="http://localhost:8888/homepage/support" title="Support">Support</a></li>
+        <li class="grid_2 omega"><a href="http://localhost:8888/homepage/Contact" title="Contact">Contact</a></li>
+   	</ul>
+</nav>

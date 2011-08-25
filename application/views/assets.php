@@ -33,28 +33,61 @@
 
 <body>
 
-  <div id="container">
-    <header>
-
-    </header>
-    <div id="main" role="main">
+	<div id="container">
+        <header>
+            <?php include("masthead.php"); ?>
+        </header>
+        <div id="main" role="main">
+     
+            <ul>
+            	<li class="cats">Categories: <a href="">Video</a>, <a href="">audio</a> and <a href="">images</a></li>
+                <li class="tags">Tags: <a href="">alltags</a></li>
+            </ul>   
+            
+            <h2>Assets</h2>
+            <h4>Video</h4>
+            <ul class="assets">
+                <?php foreach($video as $entry): ?>
+                <li>
+                	<h5><?php echo $entry->slug; ?></h5>
+                    <p class="data"><a href="/homepage/archive/<?php echo $entry->cat; ?>"><?php echo $entry->cat; ?></a> produced by <a href="">Damage Ltd</a></p>
+                    <audio>
+                    </audio>
+                    <a href="/homepage/archive/<?php echo $entry->slug; ?>"><?php echo $entry->slug; ?></a>
+                    <input type="button" value="Add to Cart" />
+				</li>
+                <?php endforeach; ?>
+            </ul> 
+             <h4>Audio</h4>
+            <ul class="assets">
+                <?php foreach($audio as $entry): ?>
+                <li>
+                	<h5><?php echo $entry->slug; ?></h5>
+                    <p class="data"><a href="/homepage/archive/<?php echo $entry->cat; ?>"><?php echo $entry->cat; ?></a> produced by <a href="">Damage Ltd</a></p>
+                    <audio>
+                    </audio>
+                    <a href="/homepage/archive/<?php echo $entry->slug; ?>"><?php echo $entry->slug; ?></a>
+                    <input type="button" value="Add to Cart" />
+				</li>
+                <?php endforeach; ?>
+            </ul>      
+            <h4>Images</h4>
+            <ul class="assets">
+                <?php foreach($images as $entry): ?>
+                <li>
+                	<h5><?php echo $entry->slug; ?></h5>
+                    <p class="data"><a href="/homepage/archive/<?php echo $entry->cat; ?>"><?php echo $entry->cat; ?></a> produced by <a href="">Damage Ltd</a></p>
+                    <audio>
+                    </audio>
+                    <a href="/homepage/archive/<?php echo $entry->slug; ?>"><?php echo $entry->slug; ?></a>
+                    <input type="button" value="Add to Cart" />
+				</li>
+                <?php endforeach; ?>
+            </ul>         
+        </div>
+        <footer>
     
-        
-        <h1>Archives</h1>
-        <h2>Tags</h2>
-        
-        <ul class="tags">
-			<?php foreach($video as $entry): ?>
-            <li><a href="/homepage/archive/<?php echo $entry->filename; ?>"><?php echo $entry->filename; ?></a></li>
-            <?php endforeach; ?>
-        </ul> 
-
-    
-
-    </div>
-    <footer>
-
-    </footer>
+        </footer>
   </div> <!--! end of #container -->
 
 

@@ -216,11 +216,18 @@ td { vertical-align: top; }
 
 
 
+html.js body div#container div#main section#productions.container_12 article div.grid_4 img{
+	max-width: 100%;
+	
+	}
 
 
-
-
-
+html.js body div#container div#main section#productions{
+	margin-bottom:20px;
+	}
+html.js body div#container div#main section#productions article{
+	margin-bottom:20px;
+	}
 
 
 

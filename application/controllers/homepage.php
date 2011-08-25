@@ -5,7 +5,29 @@ class Homepage extends CI_Controller {
 
 	public function index()
 	{
-		$this->load->view('main');
+        $this->load->model('production' , '', TRUE);
+        $data['production'] = $this->production->get_last_ten_entries();
+		$this->load->model('video' , '', TRUE);
+        $data['video'] = $this->video->get_last_ten_entries();
+		$this->load->model('audio' , '', TRUE);
+        $data['audio'] = $this->audio->get_last_ten_entries();
+		$this->load->model('images' , '', TRUE);
+        $data['images'] = $this->images->get_last_ten_entries();
+        $this->load->view('homepage' , $data);
+	}
+	
+
+	public function test()
+	{
+        $this->load->model('production' , '', TRUE);
+        $data['production'] = $this->production->get_last_ten_entries();
+		$this->load->model('video' , '', TRUE);
+        $data['video'] = $this->video->get_last_ten_entries();
+		$this->load->model('audio' , '', TRUE);
+        $data['audio'] = $this->audio->get_last_ten_entries();
+		$this->load->model('images' , '', TRUE);
+        $data['images'] = $this->images->get_last_ten_entries();
+        $this->load->view('test' , $data);
 	}
 	
 	public function world($name = 'Person')
@@ -41,22 +63,15 @@ class Homepage extends CI_Controller {
 	}
 	
 	
-	public function archives($name = 'Person')
+	public function assets()
 	{	
-		$data['v1'] = $name;
-		$data['row'] = array(	
-		'aled',
-		'ed',
-		'richie',
-		'robert',
-		'paul',
-		'liam',
-		'benn'
-		);
-
-        $this->load->model('archive' , '', TRUE);
-        $data['video'] = $this->archive->get_last_ten_entries();
-        $this->load->view('archives' , $data);
+		$this->load->model('video' , '', TRUE);
+        $data['video'] = $this->video->get_last_ten_entries();
+		$this->load->model('audio' , '', TRUE);
+        $data['audio'] = $this->audio->get_last_ten_entries();
+		$this->load->model('images' , '', TRUE);
+        $data['images'] = $this->images->get_last_ten_entries();
+        $this->load->view('assets' , $data);
 	}
 	
 }
