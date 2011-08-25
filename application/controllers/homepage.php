@@ -14,6 +14,7 @@ class Homepage extends CI_Controller {
 		$this->load->model('images' , '', TRUE);
         $data['images'] = $this->images->get_last_ten_entries();
         $this->load->view('homepage' , $data);
+		$this->load->library('cart');
 	}
 	
 

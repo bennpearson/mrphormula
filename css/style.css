@@ -215,18 +215,38 @@ td { vertical-align: top; }
 
 
 
+.container_12 {
+	max-width: 1024px;
+	margin:auto;
+}
 
-html.js body div#container div#main section#productions.container_12 article div.grid_4 img{
-	max-width: 100%;
-	
-	}
 
 
 html.js body div#container div#main section#productions{
 	margin-bottom:20px;
-	}
-html.js body div#container div#main section#productions article{
+}
+section#productions article{
 	margin-bottom:20px;
+}
+
+section#productions article div.grid_8 {
+	width:98.0%;
+}
+
+section#productions article div.grid_4 img{
+	max-width: 100%;
+}
+
+section#productions article div.grid_4 {
+	width:98.0%;
+}
+
+section#assets article.grid_4 {
+	width:98.0%;
+}
+
+nav li{
+	text-align:right;
 	}
 
 
@@ -269,11 +289,23 @@ html.js body div#container div#main section#productions article{
 
 @media only screen and (min-width: 480px) {
   /* Style adjustments for viewports 480px and over go here */
+  
+section#productions article div.grid_4 {
+	width:31.333%;
+}
+
+section#productions article div.grid_8{
+	max-width: 64.667%;
+}
 
 }
 
 @media only screen and (min-width: 768px) {
   /* Style adjustments for viewports 768px and over go here */
+  
+section#assets article.grid_4 {
+	width:31.333%;
+}
 
 }
 
