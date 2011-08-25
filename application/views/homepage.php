@@ -21,15 +21,15 @@
 
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
 
-  <link rel="stylesheet" href="css/grid.css">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>/css/grid.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>/css/style.css">
   
   <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
 
   <!-- All JavaScript at the bottom, except this Modernizr build incl. Respond.js
        Respond is a polyfill for min/max-width media queries. Modernizr enables HTML5 elements & feature detects; 
        for optimal performance, create your own custom Modernizr build: www.modernizr.com/download/ -->
-  <script src="js/libs/modernizr-2.0.6.min.js"></script>
+  <script src="<?php echo base_url(); ?>/js/libs/modernizr-2.0.6.min.js"></script>
 </head>
 
 <body>
@@ -55,7 +55,7 @@
                         <p><a href="/homepage/production/<?php echo $entry->slug; ?>">More info</a></p>
                     </div>
                     <div class="grid_4 omega">
-                    	<img src="img/placeholder.jpg"/>
+                    	<img src="<?php echo base_url(); ?>/img/placeholder.jpg"/>
                     </div>
                 </article>
                 <?php endforeach; ?>

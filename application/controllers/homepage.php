@@ -1,8 +1,7 @@
 <?php 
 
-
 class Homepage extends CI_Controller {
-
+	
 	public function index()
 	{
         $this->load->model('production' , '', TRUE);
@@ -14,8 +13,15 @@ class Homepage extends CI_Controller {
 		$this->load->model('images' , '', TRUE);
         $data['images'] = $this->images->get_last_ten_entries();
         $this->load->view('homepage' , $data);
-		$this->load->library('cart');
 	}
+	
+
+	function cart()
+	{
+		$this->load->helpers('form_helper');
+		$this->load->view('cart');
+	}
+	
 	
 
 	public function test()
