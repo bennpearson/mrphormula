@@ -1,4 +1,4 @@
-<?php echo form_open('path/to/controller/update/function'); ?>
+<?php echo form_open('homepage/update'); ?>
 
 <table cellpadding="6" cellspacing="1" style="width:100%" border="0">
 
