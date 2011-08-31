@@ -12,7 +12,7 @@
        More info: h5bp.com/b/378 -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-  <title></title>
+  <title>Assets</title>
   <meta name="description" content="">
   <meta name="author" content="">
 
@@ -21,72 +21,261 @@
 
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
 
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>/css/grid.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>/css/style.css">
   
   <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
 
   <!-- All JavaScript at the bottom, except this Modernizr build incl. Respond.js
        Respond is a polyfill for min/max-width media queries. Modernizr enables HTML5 elements & feature detects; 
        for optimal performance, create your own custom Modernizr build: www.modernizr.com/download/ -->
-  <script src="js/libs/modernizr-2.0.6.min.js"></script>
+  <script src="<?php echo base_url(); ?>/js/libs/modernizr-2.0.6.min.js"></script>
 </head>
 
 <body>
-
 	<div id="container">
-        <header>
+		<?php if ($cart = $this->cart->contents()): ?>
+        <div id="cart" class="container_12 clearfix">
+            <table>
+            <caption>Shopping Cart</caption>
+            <thead>
+                <tr>
+                    <th>Item Name</th>
+                    <th>Option</th>
+                    <th>Price</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <?php foreach ($cart as $item): ?>
+                <tr>
+                    <td><?php echo $item['name']; ?></td>
+                    <td>
+                        <?php if ($this->cart->has_options($item['rowid'])) {
+                            foreach ($this->cart->product_options($item['rowid']) as $option => $value) {
+                                echo $option . ": <em>" . $value . "</em>";
+                            }
+                            
+                        } ?>
+                    </td>
+                    <td>$<?php echo $item['subtotal']; ?></td>
+                    <td class="remove">
+                        <?php echo anchor('shop_assets/remove/'.$item['rowid'],'X'); ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            <tr class="total">
+                <td colspan="2"><strong>Total</strong></td>
+                <td>$<?php echo $this->cart->total(); ?></td>
+            </tr>
+            </table>		
+        </div>
+        <?php endif; ?>
+        <header class="container_12 clearfix">
             <?php include("masthead.php"); ?>
         </header>
         <div id="main" role="main">
-     
-            <ul>
-            	<li class="cats">Categories: <a href="">Video</a>, <a href="">audio</a> and <a href="">images</a></li>
-                <li class="tags">Tags: <a href="">alltags</a></li>
-            </ul>   
+			<section id="nln" class="container_12">
             
-            <h2>Assets</h2>
-            <h4>Video</h4>
-            <ul class="assets">
-                <?php foreach($video as $entry): ?>
-                <li>
-                	<h5><?php echo $entry->slug; ?></h5>
-                    <p class="data"><a href="/homepage/archive/<?php echo $entry->cat; ?>"><?php echo $entry->cat; ?></a> produced by <a href="">Damage Ltd</a></p>
-                    <audio>
-                    </audio>
-                    <a href="/homepage/archive/<?php echo $entry->slug; ?>"><?php echo $entry->slug; ?></a>
-                    <input type="button" value="Add to Cart" />
-				</li>
-                <?php endforeach; ?>
-            </ul> 
-             <h4>Audio</h4>
-            <ul class="assets">
-                <?php foreach($audio as $entry): ?>
-                <li>
-                	<h5><?php echo $entry->slug; ?></h5>
-                    <p class="data"><a href="/homepage/archive/<?php echo $entry->cat; ?>"><?php echo $entry->cat; ?></a> produced by <a href="">Damage Ltd</a></p>
-                    <audio>
-                    </audio>
-                    <a href="/homepage/archive/<?php echo $entry->slug; ?>"><?php echo $entry->slug; ?></a>
-                    <input type="button" value="Add to Cart" />
-				</li>
-                <?php endforeach; ?>
-            </ul>      
-            <h4>Images</h4>
-            <ul class="assets">
-                <?php foreach($images as $entry): ?>
-                <li>
-                	<h5><?php echo $entry->slug; ?></h5>
-                    <p class="data"><a href="/homepage/archive/<?php echo $entry->cat; ?>"><?php echo $entry->cat; ?></a> produced by <a href="">Damage Ltd</a></p>
-                    <audio>
-                    </audio>
-                    <a href="/homepage/archive/<?php echo $entry->slug; ?>"><?php echo $entry->slug; ?></a>
-                    <input type="button" value="Add to Cart" />
-				</li>
-                <?php endforeach; ?>
-            </ul>         
+            
+            
+            
+            
+            
+            
+<h1>Categories <?php echo $v1; ?></h1>
+<h2>Tags <?php echo $v2; ?></h2>
+<p>Codeigniter</p>
+
+<ul>
+	<?php foreach($row as $user): ?>
+		<li><?php echo $user; ?></li>
+	<?php endforeach; ?>
+</ul>
+
+Categories
+<ul class="categories">
+<li><a href="/shop/assets">All</a></li>
+<?php foreach ($categories as $cat): ?>
+                    <li><a href="/shop/assets/<?php echo $cat->name; ?>"><?php echo $cat->name; ?></a></li>      
+<?php endforeach; ?>
+</ul>
+
+
+
+
+
+
+
+Tags
+<ul class="tags">
+<li><a href="/shop/assets/categories">All</a></li>
+<?php foreach ($tags as $tag): ?>
+
+
+<?php foreach ($video as $product): ?>
+<?php if ($product->tag_id == $v2 || $v2 == 'tags'): ?>
+
+
+<li><a href="/shop/assets/<?php echo $v1; ?>/<?php echo $tag->tag_id; ?>"><?php echo $tag->name; ?></a></li>
+
+<?php endif; ?> 
+<?php endforeach; ?> 
+                    
+                    
+
+<?php endforeach; ?>
+</ul>
+
+
+
+
+
+
+
+<ul>
+<?php if ($v1 == 'video'): ?>
+<?php foreach ($video as $product): ?>
+<li>
+<?php echo $product->tag_id; ?>
+</li>
+<?php endforeach; ?>
+<?php endif; ?>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+			</section>     
+            <section id="assets" class="container_12 clearfix">            
+                <h2>Assets</h2>
+                <article class="grid_4 alpha">
+                <? if ($v1 == 'video' || $v1 == 'categories'): ?>
+                    <h4>Video</h4>
+                    <ul>
+                    <?php foreach ($video as $product): ?>
+                    <?php if ($product->tag_id == $v2 || $v2 == 'tags'): ?>
+                        <li>
+                            <?php echo form_open('shop_assets/add_video'); ?>
+                            <div class="name"><?php echo $product->name; ?></div>
+                            <div class="thumb">
+                            <?php echo img(array(
+                                'src' => 'images/' . $product->image,
+                                'class' => 'thumb',
+                                'alt' => $product->name
+                            )); ?>				
+                            </div>
+                            <div class="price">$<?php echo $product->price; ?></div>
+                            <div class="option">
+                                <?php if ($product->option_name): ?>
+                                    <?php echo form_label($product->option_name, 'option_'. $product->id); ?>
+                                    <?php echo form_dropdown(
+                                        $product->option_name,
+                                        $product->option_values,
+                                        NULL,
+                                        'id="option_'. $product->id.'"'
+                                    ); ?>
+                                <?php endif; ?>
+                            </div>
+                            
+                            <?php echo form_hidden('id', $product->id); ?>
+                            <?php echo form_submit('action', 'Add to Cart'); ?>
+                            <?php echo form_close(); ?>
+                        </li>
+                    <?php endif; ?>    
+                    <?php endforeach; ?>
+                    </ul>
+                    <? endif; ?>
+                    <div class="invisible">Video</div>
+                </article>
+                <article class="grid_4">
+                <? if ($v1 == 'audio' || $v1 == 'categories'): ?>
+                    <h4>Audio</h4>
+                    <ul>
+						<?php foreach ($audio as $product): ?>
+                        <?php if ($product->tag_id == $v2 || $v2 == 'tags'): ?>
+                        <li>
+                            <?php echo form_open('shop_assets/add_audio'); ?>
+                            <div class="name"><?php echo $product->name; ?></div>
+                            <div class="thumb">
+                            <?php echo img(array(
+                                'src' => 'images/' . $product->image,
+                                'class' => 'thumb',
+                                'alt' => $product->name
+                            )); ?>				
+                            </div>
+                            <div class="price">$<?php echo $product->price; ?></div>
+                            <div class="option">
+                                <?php if ($product->option_name): ?>
+                                    <?php echo form_label($product->option_name, 'option_'. $product->id); ?>
+                                    <?php echo form_dropdown(
+                                        $product->option_name,
+                                        $product->option_values,
+                                        NULL,
+                                        'id="option_'. $product->id.'"'
+                                    ); ?>
+                                <?php endif; ?>
+                            </div>
+                            
+                            <?php echo form_hidden('id', $product->id); ?>
+                            <?php echo form_submit('action', 'Add to Cart'); ?>
+                            <?php echo form_close(); ?>
+                        </li>
+                        <?php endif; ?> 
+                        <?php endforeach; ?>
+                    </ul>
+                    <? endif; ?>
+                    <div class="invisible">Audio</div>
+                </article>
+                <article class="grid_4 omega">
+                <? if ($v1 == 'images' || $v1 == 'categories'): ?>
+                    <h4>Images</h4>
+                    <ul>
+						<?php foreach ($images as $product): ?>
+                        <?php if ($product->tag_id == $v2 || $v2 == 'tags'): ?>
+                        <li>
+                            <?php echo form_open('shop_assets/add_images'); ?>
+                            <div class="name"><?php echo $product->name; ?></div>
+                            <div class="thumb">
+                            <?php echo img(array(
+                                'src' => 'images/' . $product->image,
+                                'class' => 'thumb',
+                                'alt' => $product->name
+                            )); ?>				
+                            </div>
+                            <div class="price">$<?php echo $product->price; ?></div>
+                            <div class="option">
+                                <?php if ($product->option_name): ?>
+                                    <?php echo form_label($product->option_name, 'option_'. $product->id); ?>
+                                    <?php echo form_dropdown(
+                                        $product->option_name,
+                                        $product->option_values,
+                                        NULL,
+                                        'id="option_'. $product->id.'"'
+                                    ); ?>
+                                <?php endif; ?>
+                            </div>
+                            
+                            <?php echo form_hidden('id', $product->id); ?>
+                            <?php echo form_submit('action', 'Add to Cart'); ?>
+                            <?php echo form_close(); ?>
+                        </li>
+                        <?php endif; ?> 
+                        <?php endforeach; ?>
+                    </ul>
+                    <? endif; ?>
+                    <div class="invisible">Images</div>
+                </article>
+            </section>        
         </div>
-        <footer>
-    
+        <footer class="container_12">
+    	Copyright Damage Ltd 2011
         </footer>
   </div> <!--! end of #container -->
 
@@ -119,6 +308,8 @@
     <script defer src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
     <script defer>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
   <![endif]-->
+
+
 
 </body>
 </html>

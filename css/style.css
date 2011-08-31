@@ -240,9 +240,7 @@ td { vertical-align: top; }
 }
 
 #cart {
-	padding: 4px; margin: 8px; float: left;
-	border: 1px solid #ddd; background-color: #eee;
-	-moz-border-radius: 4px; -webkit-border-radius: 4px;
+	background-color: #eee;
 }
 #cart table {
 	width: 320px; border-collapse: collapse;
@@ -264,6 +262,9 @@ td { vertical-align: top; }
 
 
 
+
+ul.categories li {display:inline;}
+ul.tags li {display:inline;}
 
 
 

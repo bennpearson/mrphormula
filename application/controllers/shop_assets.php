@@ -1,5 +1,5 @@
 <?php
-class Shop extends CI_Controller {
+class Shop_assets extends CI_Controller {
 	
 	function index() {
 		
@@ -32,7 +32,7 @@ class Shop extends CI_Controller {
 		}
 		
 		$this->cart->insert($insert);
-		redirect('shop');
+		redirect('shop/assets');
 		
 	}
 	
@@ -54,7 +54,7 @@ class Shop extends CI_Controller {
 		}
 		
 		$this->cart->insert($insert);
-		redirect('shop');
+		redirect('shop/assets');
 		
 	}
 	
@@ -76,7 +76,7 @@ class Shop extends CI_Controller {
 		}
 		
 		$this->cart->insert($insert);
-		redirect('shop');
+		redirect('shop/assets');
 		
 	}
 	
@@ -98,7 +98,7 @@ class Shop extends CI_Controller {
 		}
 		
 		$this->cart->insert($insert);
-		redirect('shop');
+		redirect('shop/assets');
 		
 	}
 	
@@ -109,55 +109,7 @@ class Shop extends CI_Controller {
 			'qty' => 0
 		));
 		
-		redirect('shop');
-		
-	}
-	
-	function assets($cat = 'categories', $tag = 'tags' ) {
-		
-		$this->load->model('Categories_model' , '', TRUE); 			
-        $data['categories'] = $this->Categories_model->get_all();
-		
-		$this->load->model('Tags_model' , '', TRUE); 			
-        $data['tags'] = $this->Tags_model->get_all();
-		
-		$this->load->model('Video_model' , '', TRUE); 			
-        $data['video'] = $this->Video_model->get_all(); 		
-		$this->load->model('Audio_model' , '', TRUE);			
-        $data['audio'] = $this->Audio_model->get_all(); 		
-		$this->load->model('Images_model' , '', TRUE); 			
-        $data['images'] = $this->Images_model->get_all();				
-		$this->load->model('Products_model');
-		$data['production'] = $this->Products_model->get_all();
-		
-		$data['v1'] = $cat;
-		$data['v2'] = $tag;
-		$data['row'] = array(	
-			'rapping',
-			'beatboxing',
-			'kaosspad',
-			'beat',
-			'wales',
-			'music',
-			'song'
-		);
-		
-		$this->load->view('assets', $data);
-
-		
-	}	
-	
- 	public function production($slug = null)
-	{
-		if (empty($slug))
-		{
-			echo 'need slug';
-			exit;
-		}
-		
-		$this->load->model('production' , '', TRUE);
-		$data['entry'] = $this->production->get_entry($slug);
-		$this->load->view('production_entry' , $data);
+		redirect('shop/assets');
 		
 	}
 	

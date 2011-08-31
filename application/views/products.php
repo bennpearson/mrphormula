@@ -33,58 +33,50 @@
 </head>
 
 <body>
-
 	<div id="container">
-    
-    
-	<?php if ($cart = $this->cart->contents()): ?>
-	<div id="cart">
-		<table>
-		<caption>Shopping Cart</caption>
-		<thead>
-			<tr>
-				<th>Item Name</th>
-				<th>Option</th>
-				<th>Price</th>
-				<th></th>
-			</tr>
-		</thead>
-		<?php foreach ($cart as $item): ?>
-			<tr>
-				<td><?php echo $item['name']; ?></td>
-				<td>
-					<?php if ($this->cart->has_options($item['rowid'])) {
-						foreach ($this->cart->product_options($item['rowid']) as $option => $value) {
-							echo $option . ": <em>" . $value . "</em>";
-						}
-						
-					} ?>
-				</td>
-				<td>$<?php echo $item['subtotal']; ?></td>
-				<td class="remove">
-					<?php echo anchor('shop/remove/'.$item['rowid'],'X'); ?>
-				</td>
-			</tr>
-		<?php endforeach; ?>
-		<tr class="total">
-			<td colspan="2"><strong>Total</strong></td>
-			<td>$<?php echo $this->cart->total(); ?></td>
-		</tr>
-		</table>		
-	</div>
-	<?php endif; ?>
-
-
-
-    
+		<?php if ($cart = $this->cart->contents()): ?>
+        <div id="cart" class="container_12 clearfix">
+            <table>
+            <caption>Shopping Cart</caption>
+            <thead>
+                <tr>
+                    <th>Item Name</th>
+                    <th>Option</th>
+                    <th>Price</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <?php foreach ($cart as $item): ?>
+                <tr>
+                    <td><?php echo $item['name']; ?></td>
+                    <td>
+                        <?php if ($this->cart->has_options($item['rowid'])) {
+                            foreach ($this->cart->product_options($item['rowid']) as $option => $value) {
+                                echo $option . ": <em>" . $value . "</em>";
+                            }
+                            
+                        } ?>
+                    </td>
+                    <td>$<?php echo $item['subtotal']; ?></td>
+                    <td class="remove">
+                        <?php echo anchor('shop/remove/'.$item['rowid'],'X'); ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            <tr class="total">
+                <td colspan="2"><strong>Total</strong></td>
+                <td>$<?php echo $this->cart->total(); ?></td>
+            </tr>
+            </table>		
+        </div>
+        <?php endif; ?>
         <header class="container_12 clearfix">
             <?php include("masthead.php"); ?>
         </header>
         <div id="main" role="main">
 			<section id="nln" class="container_12">
             	<p>Our collection of <a href="">video</a>, <a href="">audio</a> and still <a href="">images</a> is available for you to download and use freely on a rights-free basis. We provide this service at a small-cost, with the aim of promoting Welsh culture.</p>
-			</section>
-            
+			</section>     
             <section id="productions" class="container_12 clearfix">
             	<h2>Radio Production</h2>
 				<?php foreach ($production as $product): ?>
@@ -95,7 +87,7 @@
                         <p><?php echo $product->description ?></p>
                         <audio>
                         </audio>
-                        <p><a href="/homepage/production/<?php echo $product->slug; ?>">More info</a></p>
+                        <p><a href="/shop/production/<?php echo $product->slug; ?>">More info</a></p>
                         <div class="price">$<?php echo $product->price; ?></div>	
                         <div class="option">
                             <?php if ($product->option_name): ?>

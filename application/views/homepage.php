@@ -52,7 +52,7 @@
                         <p><?php echo $entry->description ?></p>
                         <audio>
                         </audio>
-                        <p><a href="/homepage/production/<?php echo $entry->slug; ?>">More info</a></p>
+                        <p><a href="/shop/production/<?php echo $entry->slug; ?>">More info</a></p>
                     </div>
                     <div class="grid_4 omega">
                     	<img src="<?php echo base_url(); ?>/img/placeholder.jpg"/>
