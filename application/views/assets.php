@@ -31,7 +31,6 @@
        for optimal performance, create your own custom Modernizr build: www.modernizr.com/download/ -->
   <script src="<?php echo base_url(); ?>js/libs/modernizr-2.0.6.min.js"></script>
 </head>
-
 <body>
 	<div id="container">
 		<?php if ($cart = $this->cart->contents()): ?>
@@ -75,156 +74,112 @@
         </header>
         <div id="main" role="main">
 			<section id="nln" class="container_12">
-            
-            
-           
+                <ul class="categories">
+                	<li>Categories: <a href="<?php echo base_url(); ?>shop/assets">All</a></li>
+					<?php foreach ($categories as $cat): ?>
+					<li><a href="/shop/assets/<?php echo $cat->name; ?>"><?php echo $cat->name; ?></a></li>      
+					<?php endforeach; ?>
+                </ul>
+                <ul class="tags">
+                	<li>
+						Tags: <?php if ($this->uri->segment(3) == TRUE): ?>
+                            <a href="<?php echo base_url(); ?>shop/assets/<?php echo $this->uri->segment(3); ?>">All</a>
+                        <?php else: ?>
+                            <a href="<?php echo base_url(); ?>shop/assets/categories/">All</a>
+                        <?php endif; ?>
+                    </li>
+                    
+                    
+                    <?php if ($this->uri->segment(3) == FALSE || $this->uri->segment(3) == 'categories'): ?>
+                    	<?php foreach($tags as $tag):?>
+                    		<li><a href="<?php echo base_url(); ?>shop/assets/categories/<?php echo $tag->tag_id; ?>"><?php echo $tag->name; ?></a></li>
+                    	<?php endforeach; ?>
+                    <?php endif; ?>
+                    
+                    
+					<?php if ($v1 == 'video' || $v1 == 'categories'): ?>
+                    <?php foreach($tags as $tag):?>
+                    <?php
+                    // An empty array we'll populate with product tags once
+                    $loaded_products = array();
+                    foreach($video as $product):
+                    
+                        // Check if the tag id is in the array
+                        if (in_array($product->tag_id, $loaded_products)) {
+                            // It is (and we don't want a second one to be), so continue will allow us to skip the rest of the loop
+                            continue;
+                        }
+                        // If we're at this spot, the tag id isn't in the array, so we'll add it to prevent duplicates
+                        $loaded_products[] = $product->tag_id;
+                    ?>
+                        <li><?php if ($tag->tag_id == $product->tag_id): ?>
+                                <?php if ($this->uri->segment(3) == TRUE && $this->uri->segment(3) != 'categories'): ?>
+                                    <a href="<?php echo base_url(); ?>shop/assets/<?php echo $this->uri->segment(3); ?>/<?php echo $tag->tag_id; ?>"><?php echo $tag->name; ?></a>
+                                <?php else: ?>
+                                    <!-- <a href="<?php echo base_url(); ?>shop/assets/categories/<?php echo $tag->tag_id; ?>"><?php echo $tag->name; ?></a>-->
+                                <?php endif; ?>
+                            <?php endif; ?>
+                        </li>
+                    <?php endforeach; ?>
+                    <?php endforeach; ?>
+                    <?php endif; ?>
 
-
-
-
-
-    
-            
-            
-            
-<h1>Categories <?php echo $v1; ?></h1>
-<h2>Tags <?php echo $v2; ?></h2>
-<p>Codeigniter</p>
-
-<ul>
-	<?php foreach($row as $user): ?>
-		<li><?php echo $user; ?></li>
-	<?php endforeach; ?>
-</ul>
-
-Categories
-<ul class="categories">
-<li><a href="<?php echo base_url(); ?>shop/assets">All</a></li>
-<?php foreach ($categories as $cat): ?>
-                    <li><a href="/shop/assets/<?php echo $cat->name; ?>"><?php echo $cat->name; ?></a></li>      
-<?php endforeach; ?>
-</ul>
-
-
-
-
-
-
-
-Tags
-<ul class="tags">
-<li>
-			<?php if ($this->uri->segment(3) == TRUE): ?>
-                <a href="<?php echo base_url(); ?>shop/assets/<?php echo $this->uri->segment(3); ?>">All</a>
-            <?php else: ?>
-                <a href="<?php echo base_url(); ?>shop/assets/categories/">All</a>
-            <?php endif; ?>
-            </li>
-<?php if ($v1 == 'video' || $v1 == 'categories'): ?>
-<?php foreach($tags as $tag):?>
-<?php
-// An empty array we'll populate with product tags once
-$loaded_products = array();
-foreach($video as $product):
-
-    // Check if the tag id is in the array
-    if (in_array($product->tag_id, $loaded_products)) {
-        // It is (and we don't want a second one to be), so continue will allow us to skip the rest of the loop
-        continue;
-    }
-    // If we're at this spot, the tag id isn't in the array, so we'll add it to prevent duplicates
-    $loaded_products[] = $product->tag_id;
-?>
-    <li><?php if ($tag->tag_id == $product->tag_id): ?>
-			<?php if ($this->uri->segment(3) == TRUE): ?>
-                <a href="<?php echo base_url(); ?>shop/assets/<?php echo $this->uri->segment(3); ?>/<?php echo $tag->tag_id; ?>"><?php echo $tag->name; ?></a>
-            <?php else: ?>
-                <a href="<?php echo base_url(); ?>shop/assets/categories/<?php echo $tag->tag_id; ?>"><?php echo $tag->name; ?></a>
-            <?php endif; ?>
-        <?php endif; ?>
-    </li>
-
-   
-   
-<?php endforeach; ?>
-<?php endforeach; ?>
-<?php endif; ?>
-
-
-
-
-<?php if ($v1 == 'audio' || $v1 == 'categories'): ?>
-<?php foreach($tags as $tag):?>
-<?php
-// An empty array we'll populate with product tags once
-$loaded_products = array();
-foreach($audio as $product):
-
-    // Check if the tag id is in the array
-    if (in_array($product->tag_id, $loaded_products)) {
-        // It is (and we don't want a second one to be), so continue will allow us to skip the rest of the loop
-        continue;
-    }
-    // If we're at this spot, the tag id isn't in the array, so we'll add it to prevent duplicates
-    $loaded_products[] = $product->tag_id;
-?>
-    <li><?php if ($tag->tag_id == $product->tag_id): ?>
-			<?php if ($this->uri->segment(3) == TRUE): ?>
-                <a href="<?php echo base_url(); ?>shop/assets/<?php echo $this->uri->segment(3); ?>/<?php echo $tag->tag_id; ?>"><?php echo $tag->name; ?></a>
-            <?php else: ?>
-                <a href="<?php echo base_url(); ?>shop/assets/categories/<?php echo $tag->tag_id; ?>"><?php echo $tag->name; ?></a>
-            <?php endif; ?>
-        <?php endif; ?>
-    </li>
-    
-   
-<?php endforeach; ?>
-<?php endforeach; ?>
-<?php endif; ?>
-
-
-
-
-
-
-<?php if ($v1 == 'images' || $v1 == 'categories'): ?>
-<?php foreach($tags as $tag):?>
-<?php
-// An empty array we'll populate with product tags once
-$loaded_products = array();
-foreach($images as $product):
-
-    // Check if the tag id is in the array
-    if (in_array($product->tag_id, $loaded_products)) {
-        // It is (and we don't want a second one to be), so continue will allow us to skip the rest of the loop
-        continue;
-    }
-    // If we're at this spot, the tag id isn't in the array, so we'll add it to prevent duplicates
-    $loaded_products[] = $product->tag_id;
-?>
-    <li><?php if ($tag->tag_id == $product->tag_id): ?>
-			<?php if ($this->uri->segment(3) == TRUE): ?>
-                <a href="<?php echo base_url(); ?>shop/assets/<?php echo $this->uri->segment(3); ?>/<?php echo $tag->tag_id; ?>"><?php echo $tag->name; ?></a>
-            <?php else: ?>
-                <a href="<?php echo base_url(); ?>shop/assets/categories/<?php echo $tag->tag_id; ?>"><?php echo $tag->name; ?></a>
-            <?php endif; ?>
-        <?php endif; ?>
-    </li>
-    
-   
-<?php endforeach; ?>
-<?php endforeach; ?>
-<?php endif; ?>
-</ul>
-
-
-
-
-
-
-
-
-
+					<?php if ($v1 == 'audio' || $v1 == 'categories'): ?>
+                    <?php foreach($tags as $tag):?>
+                    <?php
+                    // An empty array we'll populate with product tags once
+                    $loaded_products = array();
+                    foreach($audio as $product):
+                    
+                        // Check if the tag id is in the array
+                        if (in_array($product->tag_id, $loaded_products)) {
+                            // It is (and we don't want a second one to be), so continue will allow us to skip the rest of the loop
+                            continue;
+                        }
+                        // If we're at this spot, the tag id isn't in the array, so we'll add it to prevent duplicates
+                        $loaded_products[] = $product->tag_id;
+                    ?>
+                        <li><?php if ($tag->tag_id == $product->tag_id): ?>
+                                <?php if ($this->uri->segment(3) == TRUE && $this->uri->segment(3) != 'categories'): ?>
+                                    <a href="<?php echo base_url(); ?>shop/assets/<?php echo $this->uri->segment(3); ?>/<?php echo $tag->tag_id; ?>"><?php echo $tag->name; ?></a>
+                                <?php else: ?>
+                                    <!-- <a href="<?php echo base_url(); ?>shop/assets/categories/<?php echo $tag->tag_id; ?>"><?php echo $tag->name; ?></a>-->
+                                <?php endif; ?>
+                            <?php endif; ?>
+                        </li>  
+                    <?php endforeach; ?>
+                    <?php endforeach; ?>
+                    <?php endif; ?>
+                    
+                    <?php if ($v1 == 'images' || $v1 == 'categories'): ?>
+                    <?php foreach($tags as $tag):?>
+                    <?php
+                    // An empty array we'll populate with product tags once
+                    $loaded_products = array();
+                    foreach($images as $product):
+                    
+                        // Check if the tag id is in the array
+                        if (in_array($product->tag_id, $loaded_products)) {
+                            // It is (and we don't want a second one to be), so continue will allow us to skip the rest of the loop
+                            continue;
+                        }
+                        // If we're at this spot, the tag id isn't in the array, so we'll add it to prevent duplicates
+                        $loaded_products[] = $product->tag_id;
+                    ?>
+                        <li><?php if ($tag->tag_id == $product->tag_id): ?>
+                                <?php if ($this->uri->segment(3) == TRUE && $this->uri->segment(3) != 'categories'): ?>
+                                    <a href="<?php echo base_url(); ?>shop/assets/<?php echo $this->uri->segment(3); ?>/<?php echo $tag->tag_id; ?>"><?php echo $tag->name; ?></a>
+                                <?php else: ?>
+                                    <!-- <a href="<?php echo base_url(); ?>shop/assets/categories/<?php echo $tag->tag_id; ?>"><?php echo $tag->name; ?></a>-->
+                                <?php endif; ?>
+                            <?php endif; ?>
+                        </li>
+                        
+                       
+                    <?php endforeach; ?>
+                    <?php endforeach; ?>
+                    <?php endif; ?>
+				</ul>
 			</section>     
             <section id="assets" class="container_12 clearfix">            
                 <h2>Assets</h2>
