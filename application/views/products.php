@@ -21,15 +21,15 @@
 
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
 
-  <link rel="stylesheet" href="<?php echo base_url(); ?>/css/grid.css">
-  <link rel="stylesheet" href="<?php echo base_url(); ?>/css/style.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>css/grid.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>css/style.css">
   
   <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
 
   <!-- All JavaScript at the bottom, except this Modernizr build incl. Respond.js
        Respond is a polyfill for min/max-width media queries. Modernizr enables HTML5 elements & feature detects; 
        for optimal performance, create your own custom Modernizr build: www.modernizr.com/download/ -->
-  <script src="<?php echo base_url(); ?>/js/libs/modernizr-2.0.6.min.js"></script>
+  <script src="<?php echo base_url(); ?>js/libs/modernizr-2.0.6.min.js"></script>
 </head>
 
 <body>
@@ -104,8 +104,8 @@
 
                     </div>
                     <div class="grid_4 omega">
-                    	<div class="thumb">
-                    	<img src="<?php echo base_url(); ?>/img/placeholder.jpg"/>
+                    	<div class="production_thumb">
+                    	<img src="<?php echo base_url(); ?>img/placeholder.jpg"/>
                         	<?php echo img(array(
 								'src' => 'images/' . $product->image,
 								'class' => 'thumb',
@@ -118,22 +118,23 @@
                 </article>
                 <?php endforeach; ?>
             </section>
-            <section id="assets" class="container_12">            
+            <section id="assets" class="container_12 clearfix">            
                 <h2>Assets</h2>
                 <article class="grid_4 alpha">
                     <h4>Video</h4>
                     <ul>
                     <?php foreach ($video as $product): ?>
                         <li>
-                            <?php echo form_open('shop/add_video'); ?>
+                            <?php echo form_open('shop_assets/add_video'); ?>
                             <div class="name"><?php echo $product->name; ?></div>
-                            <div class="thumb">
-                            <?php echo img(array(
-                                'src' => 'images/' . $product->image,
-                                'class' => 'thumb',
-                                'alt' => $product->name
-                            )); ?>				
-                            </div>
+                            <div class="category">Category: <a href="<?php echo base_url(); ?>shop/assets/video">video</a> &nbsp; Tags:<?php echo $product->tag_id; ?></div>
+                            <video controls="controls">
+                                <source src="<?php echo base_url(); ?>assets/video/<?php echo $product->sample; ?>.webm" type="video/webm" />
+                                <source src="<?php echo base_url(); ?>assets/video/<?php echo $product->sample; ?>.ogg" type="video/ogg" />
+                                <source src="<?php echo base_url(); ?>assets/video/<?php echo $product->sample; ?>.m4v" type="video/mp4" />
+                                <source src="<?php echo base_url(); ?>assets/video/<?php echo $product->sample; ?>.m4v" type="video/mp4" />
+                                Your browser does not support the video tag.
+                            </video>
                             <div class="price">$<?php echo $product->price; ?></div>
                             <div class="option">
                                 <?php if ($product->option_name): ?>
@@ -159,28 +160,14 @@
                     <ul>
 						<?php foreach ($audio as $product): ?>
                         <li>
-                            <?php echo form_open('shop/add_audio'); ?>
+                            <?php echo form_open('shop_assets/add_audio'); ?>
                             <div class="name"><?php echo $product->name; ?></div>
-                            <div class="thumb">
-                            <?php echo img(array(
-                                'src' => 'images/' . $product->image,
-                                'class' => 'thumb',
-                                'alt' => $product->name
-                            )); ?>				
-                            </div>
-                            <div class="price">$<?php echo $product->price; ?></div>
-                            <div class="option">
-                                <?php if ($product->option_name): ?>
-                                    <?php echo form_label($product->option_name, 'option_'. $product->id); ?>
-                                    <?php echo form_dropdown(
-                                        $product->option_name,
-                                        $product->option_values,
-                                        NULL,
-                                        'id="option_'. $product->id.'"'
-                                    ); ?>
-                                <?php endif; ?>
-                            </div>
-                            
+                            <div class="category">Category: <a href="<?php echo base_url(); ?>shop/assets/audio">audio</a> &nbsp; Tags:<?php echo $product->tag_id; ?></div>
+                            <audio controls="controls">
+                              <source src="<?php echo base_url(); ?>assets/audio/<?php echo $product->sample; ?>" type="audio/wav" />
+                            	Your browser does not support the audio element.
+                            </audio>                             
+                            <div class="price">$<?php echo $product->price; ?></div>                          
                             <?php echo form_hidden('id', $product->id); ?>
                             <?php echo form_submit('action', 'Add to Cart'); ?>
                             <?php echo form_close(); ?>
@@ -193,28 +180,17 @@
                     <ul>
 						<?php foreach ($images as $product): ?>
                         <li>
-                            <?php echo form_open('shop/add_images'); ?>
+                            <?php echo form_open('shop_assets/add_images'); ?>
                             <div class="name"><?php echo $product->name; ?></div>
+                            <div class="category">Category: <a href="<?php echo base_url(); ?>shop/assets/audio">audio</a> &nbsp; Tags:<?php echo $product->tag_id; ?></div>
                             <div class="thumb">
                             <?php echo img(array(
-                                'src' => 'images/' . $product->image,
+                                'src' => 'assets/images/' . $product->sample,
                                 'class' => 'thumb',
-                                'alt' => $product->name
+                                'alt' => $product->name,
                             )); ?>				
                             </div>
                             <div class="price">$<?php echo $product->price; ?></div>
-                            <div class="option">
-                                <?php if ($product->option_name): ?>
-                                    <?php echo form_label($product->option_name, 'option_'. $product->id); ?>
-                                    <?php echo form_dropdown(
-                                        $product->option_name,
-                                        $product->option_values,
-                                        NULL,
-                                        'id="option_'. $product->id.'"'
-                                    ); ?>
-                                <?php endif; ?>
-                            </div>
-                            
                             <?php echo form_hidden('id', $product->id); ?>
                             <?php echo form_submit('action', 'Add to Cart'); ?>
                             <?php echo form_close(); ?>

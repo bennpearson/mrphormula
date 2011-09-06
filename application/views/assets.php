@@ -21,15 +21,15 @@
 
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
 
-  <link rel="stylesheet" href="<?php echo base_url(); ?>/css/grid.css">
-  <link rel="stylesheet" href="<?php echo base_url(); ?>/css/style.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>css/grid.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>css/style.css">
   
   <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
 
   <!-- All JavaScript at the bottom, except this Modernizr build incl. Respond.js
        Respond is a polyfill for min/max-width media queries. Modernizr enables HTML5 elements & feature detects; 
        for optimal performance, create your own custom Modernizr build: www.modernizr.com/download/ -->
-  <script src="<?php echo base_url(); ?>/js/libs/modernizr-2.0.6.min.js"></script>
+  <script src="<?php echo base_url(); ?>js/libs/modernizr-2.0.6.min.js"></script>
 </head>
 
 <body>
@@ -77,8 +77,13 @@
 			<section id="nln" class="container_12">
             
             
-            
-            
+           
+
+
+
+
+
+    
             
             
             
@@ -94,7 +99,7 @@
 
 Categories
 <ul class="categories">
-<li><a href="/shop/assets">All</a></li>
+<li><a href="<?php echo base_url(); ?>shop/assets">All</a></li>
 <?php foreach ($categories as $cat): ?>
                     <li><a href="/shop/assets/<?php echo $cat->name; ?>"><?php echo $cat->name; ?></a></li>      
 <?php endforeach; ?>
@@ -108,41 +113,109 @@ Categories
 
 Tags
 <ul class="tags">
-<li><a href="/shop/assets/categories">All</a></li>
-<?php foreach ($tags as $tag): ?>
-
-
-<?php foreach ($video as $product): ?>
-<?php if ($product->tag_id == $v2 || $v2 == 'tags'): ?>
-
-
-<li><a href="/shop/assets/<?php echo $v1; ?>/<?php echo $tag->tag_id; ?>"><?php echo $tag->name; ?></a></li>
-
-<?php endif; ?> 
-<?php endforeach; ?> 
-                    
-                    
-
-<?php endforeach; ?>
-</ul>
-
-
-
-
-
-
-
-<ul>
-<?php if ($v1 == 'video'): ?>
-<?php foreach ($video as $product): ?>
 <li>
-<?php echo $product->tag_id; ?>
-</li>
+			<?php if ($this->uri->segment(3) == TRUE): ?>
+                <a href="<?php echo base_url(); ?>shop/assets/<?php echo $this->uri->segment(3); ?>">All</a>
+            <?php else: ?>
+                <a href="<?php echo base_url(); ?>shop/assets/categories/">All</a>
+            <?php endif; ?>
+            </li>
+<?php if ($v1 == 'video' || $v1 == 'categories'): ?>
+<?php foreach($tags as $tag):?>
+<?php
+// An empty array we'll populate with product tags once
+$loaded_products = array();
+foreach($video as $product):
+
+    // Check if the tag id is in the array
+    if (in_array($product->tag_id, $loaded_products)) {
+        // It is (and we don't want a second one to be), so continue will allow us to skip the rest of the loop
+        continue;
+    }
+    // If we're at this spot, the tag id isn't in the array, so we'll add it to prevent duplicates
+    $loaded_products[] = $product->tag_id;
+?>
+    <li><?php if ($tag->tag_id == $product->tag_id): ?>
+			<?php if ($this->uri->segment(3) == TRUE): ?>
+                <a href="<?php echo base_url(); ?>shop/assets/<?php echo $this->uri->segment(3); ?>/<?php echo $tag->tag_id; ?>"><?php echo $tag->name; ?></a>
+            <?php else: ?>
+                <a href="<?php echo base_url(); ?>shop/assets/categories/<?php echo $tag->tag_id; ?>"><?php echo $tag->name; ?></a>
+            <?php endif; ?>
+        <?php endif; ?>
+    </li>
+
+   
+   
+<?php endforeach; ?>
+<?php endforeach; ?>
+<?php endif; ?>
+
+
+
+
+<?php if ($v1 == 'audio' || $v1 == 'categories'): ?>
+<?php foreach($tags as $tag):?>
+<?php
+// An empty array we'll populate with product tags once
+$loaded_products = array();
+foreach($audio as $product):
+
+    // Check if the tag id is in the array
+    if (in_array($product->tag_id, $loaded_products)) {
+        // It is (and we don't want a second one to be), so continue will allow us to skip the rest of the loop
+        continue;
+    }
+    // If we're at this spot, the tag id isn't in the array, so we'll add it to prevent duplicates
+    $loaded_products[] = $product->tag_id;
+?>
+    <li><?php if ($tag->tag_id == $product->tag_id): ?>
+			<?php if ($this->uri->segment(3) == TRUE): ?>
+                <a href="<?php echo base_url(); ?>shop/assets/<?php echo $this->uri->segment(3); ?>/<?php echo $tag->tag_id; ?>"><?php echo $tag->name; ?></a>
+            <?php else: ?>
+                <a href="<?php echo base_url(); ?>shop/assets/categories/<?php echo $tag->tag_id; ?>"><?php echo $tag->name; ?></a>
+            <?php endif; ?>
+        <?php endif; ?>
+    </li>
+    
+   
+<?php endforeach; ?>
+<?php endforeach; ?>
+<?php endif; ?>
+
+
+
+
+
+
+<?php if ($v1 == 'images' || $v1 == 'categories'): ?>
+<?php foreach($tags as $tag):?>
+<?php
+// An empty array we'll populate with product tags once
+$loaded_products = array();
+foreach($images as $product):
+
+    // Check if the tag id is in the array
+    if (in_array($product->tag_id, $loaded_products)) {
+        // It is (and we don't want a second one to be), so continue will allow us to skip the rest of the loop
+        continue;
+    }
+    // If we're at this spot, the tag id isn't in the array, so we'll add it to prevent duplicates
+    $loaded_products[] = $product->tag_id;
+?>
+    <li><?php if ($tag->tag_id == $product->tag_id): ?>
+			<?php if ($this->uri->segment(3) == TRUE): ?>
+                <a href="<?php echo base_url(); ?>shop/assets/<?php echo $this->uri->segment(3); ?>/<?php echo $tag->tag_id; ?>"><?php echo $tag->name; ?></a>
+            <?php else: ?>
+                <a href="<?php echo base_url(); ?>shop/assets/categories/<?php echo $tag->tag_id; ?>"><?php echo $tag->name; ?></a>
+            <?php endif; ?>
+        <?php endif; ?>
+    </li>
+    
+   
+<?php endforeach; ?>
 <?php endforeach; ?>
 <?php endif; ?>
 </ul>
-
-
 
 
 
@@ -164,13 +237,14 @@ Tags
                         <li>
                             <?php echo form_open('shop_assets/add_video'); ?>
                             <div class="name"><?php echo $product->name; ?></div>
-                            <div class="thumb">
-                            <?php echo img(array(
-                                'src' => 'images/' . $product->image,
-                                'class' => 'thumb',
-                                'alt' => $product->name
-                            )); ?>				
-                            </div>
+                            <div class="category">Category: <a href="<?php echo base_url(); ?>shop/assets/video">video</a> &nbsp; Tags:<?php echo $product->tag_id; ?></div>
+                            <video controls="controls">
+                                <source src="<?php echo base_url(); ?>assets/video/<?php echo $product->sample; ?>.webm" type="video/webm" />
+                                <source src="<?php echo base_url(); ?>assets/video/<?php echo $product->sample; ?>.ogg" type="video/ogg" />
+                                <source src="<?php echo base_url(); ?>assets/video/<?php echo $product->sample; ?>.m4v" type="video/mp4" />
+                                <source src="<?php echo base_url(); ?>assets/video/<?php echo $product->sample; ?>.m4v" type="video/mp4" />
+                                Your browser does not support the video tag.
+                            </video>
                             <div class="price">$<?php echo $product->price; ?></div>
                             <div class="option">
                                 <?php if ($product->option_name): ?>
@@ -203,26 +277,12 @@ Tags
                         <li>
                             <?php echo form_open('shop_assets/add_audio'); ?>
                             <div class="name"><?php echo $product->name; ?></div>
-                            <div class="thumb">
-                            <?php echo img(array(
-                                'src' => 'images/' . $product->image,
-                                'class' => 'thumb',
-                                'alt' => $product->name
-                            )); ?>				
-                            </div>
-                            <div class="price">$<?php echo $product->price; ?></div>
-                            <div class="option">
-                                <?php if ($product->option_name): ?>
-                                    <?php echo form_label($product->option_name, 'option_'. $product->id); ?>
-                                    <?php echo form_dropdown(
-                                        $product->option_name,
-                                        $product->option_values,
-                                        NULL,
-                                        'id="option_'. $product->id.'"'
-                                    ); ?>
-                                <?php endif; ?>
-                            </div>
-                            
+                            <div class="category">Category: <a href="<?php echo base_url(); ?>shop/assets/audio">audio</a> &nbsp; Tags:<?php echo $product->tag_id; ?></div>
+                            <audio controls="controls">
+                              <source src="<?php echo base_url(); ?>assets/audio/<?php echo $product->sample; ?>" type="audio/wav" />
+                            	Your browser does not support the audio element.
+                            </audio>                             
+                            <div class="price">$<?php echo $product->price; ?></div>                          
                             <?php echo form_hidden('id', $product->id); ?>
                             <?php echo form_submit('action', 'Add to Cart'); ?>
                             <?php echo form_close(); ?>
@@ -242,26 +302,15 @@ Tags
                         <li>
                             <?php echo form_open('shop_assets/add_images'); ?>
                             <div class="name"><?php echo $product->name; ?></div>
+                            <div class="category">Category: <a href="<?php echo base_url(); ?>shop/assets/audio">audio</a> &nbsp; Tags:<?php echo $product->tag_id; ?></div>
                             <div class="thumb">
                             <?php echo img(array(
-                                'src' => 'images/' . $product->image,
+                                'src' => 'assets/images/' . $product->sample,
                                 'class' => 'thumb',
-                                'alt' => $product->name
+                                'alt' => $product->name,
                             )); ?>				
                             </div>
                             <div class="price">$<?php echo $product->price; ?></div>
-                            <div class="option">
-                                <?php if ($product->option_name): ?>
-                                    <?php echo form_label($product->option_name, 'option_'. $product->id); ?>
-                                    <?php echo form_dropdown(
-                                        $product->option_name,
-                                        $product->option_values,
-                                        NULL,
-                                        'id="option_'. $product->id.'"'
-                                    ); ?>
-                                <?php endif; ?>
-                            </div>
-                            
                             <?php echo form_hidden('id', $product->id); ?>
                             <?php echo form_submit('action', 'Add to Cart'); ?>
                             <?php echo form_close(); ?>
