@@ -23,6 +23,7 @@
 
   <link rel="stylesheet" href="<?php echo base_url(); ?>css/grid.css">
   <link rel="stylesheet" href="<?php echo base_url(); ?>css/style.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>css/base.css">
   
   <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
 
@@ -33,66 +34,68 @@
 </head>
 <body>
 	<div id="container">
-		<?php if ($cart = $this->cart->contents()): ?>
-        <div id="cart" class="container_12 clearfix">
-            <table>
-            <caption>Shopping Cart</caption>
-            <thead>
-                <tr>
-                    <th>Item Name</th>
-                    <th>Option</th>
-                    <th>Price</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <?php foreach ($cart as $item): ?>
-                <tr>
-                    <td><?php echo $item['name']; ?></td>
-                    <td>
-                        <?php if ($this->cart->has_options($item['rowid'])) {
-                            foreach ($this->cart->product_options($item['rowid']) as $option => $value) {
-                                echo $option . ": <em>" . $value . "</em>";
-                            }
-                            
-                        } ?>
-                    </td>
-                    <td>$<?php echo $item['subtotal']; ?></td>
-                    <td class="remove">
-                        <?php echo anchor('shop_assets/remove/'.$item['rowid'],'X'); ?>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-            <tr class="total">
-                <td colspan="2"><strong>Total</strong></td>
-                <td>$<?php echo $this->cart->total(); ?></td>
-            </tr>
-            </table>		
-        </div>
-        <?php endif; ?>
-        <header class="container_12 clearfix">
+        <header class="clearfix">
+            <section id="cartholder">
+				<?php if ($cart = $this->cart->contents()): ?>
+                <div id="cart" class="container_12 clearfix">
+                    <table>
+                    <caption>Shopping Cart</caption>
+                    <thead>
+                        <tr>
+                            <th>Item Name</th>
+                            <th>Option</th>
+                            <th>Price</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <?php foreach ($cart as $item): ?>
+                        <tr>
+                            <td><?php echo $item['name']; ?></td>
+                            <td>
+                                <?php if ($this->cart->has_options($item['rowid'])) {
+                                    foreach ($this->cart->product_options($item['rowid']) as $option => $value) {
+                                        echo $option . ": <em>" . $value . "</em>";
+                                    }
+                                    
+                                } ?>
+                            </td>
+                            <td>$<?php echo $item['subtotal']; ?></td>
+                            <td class="remove">
+                                <?php echo anchor('shop_assets/remove/'.$item['rowid'],'X'); ?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    <tr class="total">
+                        <td colspan="2"><strong>Total</strong></td>
+                        <td>$<?php echo $this->cart->total(); ?></td>
+                    </tr>
+                    </table>		
+                </div>
+                <?php endif; ?>	
+            </section>
             <?php include("masthead.php"); ?>
         </header>
-        <div id="main" role="main">
+        <div>
 			<section id="nln" class="container_12">
                 <ul class="categories">
-                	<li>Categories: <a href="<?php echo base_url(); ?>shop/assets">All</a></li>
+                	<li>Categories: <a href="<?php echo base_url(); ?>shop/assets">All</a>,</li>
 					<?php foreach ($categories as $cat): ?>
-					<li><a href="/shop/assets/<?php echo $cat->name; ?>"><?php echo $cat->name; ?></a></li>      
+					<li><a href="<?php echo base_url(); ?>shop/assets/<?php echo $cat->name; ?>"><?php echo $cat->name; ?></a>,</li>      
 					<?php endforeach; ?>
                 </ul>
                 <ul class="tags">
-                	<li>
-						Tags: <?php if ($this->uri->segment(3) == TRUE): ?>
-                            <a href="<?php echo base_url(); ?>shop/assets/<?php echo $this->uri->segment(3); ?>">All</a>
+                	<li>Tags: 
+						<?php if ($this->uri->segment(3) == TRUE): ?>
+                            <a href="<?php echo base_url(); ?>shop/assets/<?php echo $this->uri->segment(3); ?>">All</a>,
                         <?php else: ?>
-                            <a href="<?php echo base_url(); ?>shop/assets/categories/">All</a>
+                            <a href="<?php echo base_url(); ?>shop/assets/categories/">All</a>,
                         <?php endif; ?>
                     </li>
                     
                     
                     <?php if ($this->uri->segment(3) == FALSE || $this->uri->segment(3) == 'categories'): ?>
                     	<?php foreach($tags as $tag):?>
-                    		<li><a href="<?php echo base_url(); ?>shop/assets/categories/<?php echo $tag->tag_id; ?>"><?php echo $tag->name; ?></a></li>
+                    		<li><a href="<?php echo base_url(); ?>shop/assets/categories/<?php echo $tag->tag_id; ?>"><?php echo $tag->name; ?></a>,</li>
                     	<?php endforeach; ?>
                     <?php endif; ?>
                     
@@ -181,18 +184,30 @@
                     <?php endif; ?>
 				</ul>
 			</section>     
-            <section id="assets" class="container_12 clearfix">            
-                <h2>Assets</h2>
+
+        </div>
+        <div id="assets_wrapper" role="main">
+            <section id="assets" class="container_12 clearfix">      
                 <article class="grid_4 alpha">
                 <? if ($v1 == 'video' || $v1 == 'categories'): ?>
-                    <h4>Video</h4>
+                    <h4 class="video_text"><a>Video</a></h4>
                     <ul>
                     <?php foreach ($video as $product): ?>
                     <?php if ($product->tag_id == $v2 || $v2 == 'tags'): ?>
                         <li>
                             <?php echo form_open('shop_assets/add_video'); ?>
                             <div class="name"><?php echo $product->name; ?></div>
-                            <div class="category">Category: <a href="<?php echo base_url(); ?>shop/assets/video">video</a> &nbsp; Tags:<?php echo $product->tag_id; ?></div>
+                            <div class="category">Category: <a href="<?php echo base_url(); ?>shop/assets/video">video</a> &nbsp; Tags:
+                           	<?php foreach($tags as $tag):?> 
+									<?php if ($tag->tag_id == $product->tag_id): ?>
+                                    	<?php if ($this->uri->segment(3) == TRUE && $this->uri->segment(3) != 'categories'): ?>
+											<a href="<?php echo base_url(); ?>shop/assets/<?php echo $this->uri->segment(3); ?>/<?php echo $tag->tag_id; ?>"><?php echo $tag->name; ?> </a>
+                                        <?php else: ?>
+                                        	<a href="<?php echo base_url(); ?>shop/assets/categories/<?php echo $tag->tag_id; ?>"><?php echo $tag->name; ?></a>
+                                        <?php endif; ?>
+									<?php endif; ?>
+							<?php endforeach; ?>
+                            </div>
                             <video controls="controls">
                                 <source src="<?php echo base_url(); ?>assets/video/<?php echo $product->sample; ?>.webm" type="video/webm" />
                                 <source src="<?php echo base_url(); ?>assets/video/<?php echo $product->sample; ?>.ogg" type="video/ogg" />
@@ -212,9 +227,8 @@
                                     ); ?>
                                 <?php endif; ?>
                             </div>
-                            
                             <?php echo form_hidden('id', $product->id); ?>
-                            <?php echo form_submit('action', 'Add to Cart'); ?>
+                            <?php echo form_submit('action', 'Add to Cart'); ?>&pound;<?php echo $product->price; ?>
                             <?php echo form_close(); ?>
                         </li>
                     <?php endif; ?>    
@@ -225,21 +239,30 @@
                 </article>
                 <article class="grid_4">
                 <? if ($v1 == 'audio' || $v1 == 'categories'): ?>
-                    <h4>Audio</h4>
+                    <h4 class="audio_text"><a>Audio</a></h4>
                     <ul>
 						<?php foreach ($audio as $product): ?>
                         <?php if ($product->tag_id == $v2 || $v2 == 'tags'): ?>
                         <li>
                             <?php echo form_open('shop_assets/add_audio'); ?>
                             <div class="name"><?php echo $product->name; ?></div>
-                            <div class="category">Category: <a href="<?php echo base_url(); ?>shop/assets/audio">audio</a> &nbsp; Tags:<?php echo $product->tag_id; ?></div>
+                            <div class="category">Category: <a href="<?php echo base_url(); ?>shop/assets/audio">audio</a> &nbsp; Tags:
+                           	<?php foreach($tags as $tag):?> 
+									<?php if ($tag->tag_id == $product->tag_id): ?>
+                                    	<?php if ($this->uri->segment(3) == TRUE && $this->uri->segment(3) != 'categories'): ?>
+											<a href="<?php echo base_url(); ?>shop/assets/<?php echo $this->uri->segment(3); ?>/<?php echo $tag->tag_id; ?>"><?php echo $tag->name; ?> </a>
+                                        <?php else: ?>
+                                        	<a href="<?php echo base_url(); ?>shop/assets/categories/<?php echo $tag->tag_id; ?>"><?php echo $tag->name; ?></a>
+                                        <?php endif; ?>
+									<?php endif; ?>
+							<?php endforeach; ?>
+                            </div>
                             <audio controls="controls">
                               <source src="<?php echo base_url(); ?>assets/audio/<?php echo $product->sample; ?>" type="audio/wav" />
                             	Your browser does not support the audio element.
-                            </audio>                             
-                            <div class="price">$<?php echo $product->price; ?></div>                          
+                            </audio>                                                     
                             <?php echo form_hidden('id', $product->id); ?>
-                            <?php echo form_submit('action', 'Add to Cart'); ?>
+                            <?php echo form_submit('action', 'Add to Cart'); ?>&pound;<?php echo $product->price; ?>
                             <?php echo form_close(); ?>
                         </li>
                         <?php endif; ?> 
@@ -250,24 +273,33 @@
                 </article>
                 <article class="grid_4 omega">
                 <? if ($v1 == 'images' || $v1 == 'categories'): ?>
-                    <h4>Images</h4>
+                    <h4 class="images_text"><a>Images</a></h4>
                     <ul>
 						<?php foreach ($images as $product): ?>
                         <?php if ($product->tag_id == $v2 || $v2 == 'tags'): ?>
-                        <li>
+                        <li class="clearfix">
                             <?php echo form_open('shop_assets/add_images'); ?>
-                            <div class="name"><?php echo $product->name; ?></div>
-                            <div class="category">Category: <a href="<?php echo base_url(); ?>shop/assets/audio">audio</a> &nbsp; Tags:<?php echo $product->tag_id; ?></div>
-                            <div class="thumb">
+                            <div class="thumb_sample">
                             <?php echo img(array(
                                 'src' => 'assets/images/' . $product->sample,
                                 'class' => 'thumb',
                                 'alt' => $product->name,
                             )); ?>				
                             </div>
-                            <div class="price">$<?php echo $product->price; ?></div>
+                            <div class="name"><?php echo $product->name; ?></div>
+                            <div class="category">Category: <a href="<?php echo base_url(); ?>shop/assets/audio">audio</a> &nbsp; Tags:
+							<?php foreach($tags as $tag):?> 
+									<?php if ($tag->tag_id == $product->tag_id): ?>
+                                    	<?php if ($this->uri->segment(3) == TRUE && $this->uri->segment(3) != 'categories'): ?>
+											<a href="<?php echo base_url(); ?>shop/assets/<?php echo $this->uri->segment(3); ?>/<?php echo $tag->tag_id; ?>"><?php echo $tag->name; ?> </a>
+                                        <?php else: ?>
+                                        	<a href="<?php echo base_url(); ?>shop/assets/categories/<?php echo $tag->tag_id; ?>"><?php echo $tag->name; ?></a>
+                                        <?php endif; ?>
+									<?php endif; ?>
+							<?php endforeach; ?>
+                            </div>
                             <?php echo form_hidden('id', $product->id); ?>
-                            <?php echo form_submit('action', 'Add to Cart'); ?>
+                            <?php echo form_submit('action', 'Add to Cart'); ?>&pound;<?php echo $product->price; ?>
                             <?php echo form_close(); ?>
                         </li>
                         <?php endif; ?> 
@@ -278,8 +310,10 @@
                 </article>
             </section>        
         </div>
-        <footer class="container_12">
-    	Copyright Damage Ltd 2011
+        <footer>
+        	<div class="container_12 clearfix">
+    			<p>Copyright Damage un Ltd 2011</p>
+            </div>
         </footer>
   </div> <!--! end of #container -->
 

@@ -1,5 +1,5 @@
 <?php
-class Video_model extends CI_Model {
+class video_model extends ci_model {
 	
 	function get_all() {
 		

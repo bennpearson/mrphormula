@@ -1,5 +1,5 @@
 <?php
-class Audio_model extends CI_Model {
+class audio_model extends ci_model {
 	
 	function get_all() {
 		

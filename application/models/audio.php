@@ -1,7 +1,6 @@
 <?php
 
-class audio extends CI_Model 
-{
+class audio extends ci_model {
 
 	function get_last_ten_entries()
     {

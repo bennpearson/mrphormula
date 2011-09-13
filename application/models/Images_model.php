@@ -1,5 +1,5 @@
 <?php
-class Images_model extends CI_Model {
+class images_model extends ci_model {
 	
 	function get_all() {
 		

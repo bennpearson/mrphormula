@@ -310,7 +310,7 @@ FileETag None
   	RewriteEngine On
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteCond %{REQUEST_FILENAME} !-d
-	RewriteRule ^(.*)$ index.php/$1 [L]
+	RewriteRule ^(.*)$ /index.php/$1 [L]
 </IfModule>
 
 
@@ -508,5 +508,3 @@ AddCharset utf-8 .html .css .js .xml .json .rss .atom
 <IfModule php5_module>
   php_value session.cookie_httponly true
 </IfModule>
-
-

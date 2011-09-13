@@ -23,6 +23,7 @@
 
   <link rel="stylesheet" href="<?php echo base_url(); ?>css/grid.css">
   <link rel="stylesheet" href="<?php echo base_url(); ?>css/style.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>css/base.css">
   
   <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
 
@@ -31,111 +32,125 @@
        for optimal performance, create your own custom Modernizr build: www.modernizr.com/download/ -->
   <script src="<?php echo base_url(); ?>js/libs/modernizr-2.0.6.min.js"></script>
 </head>
-
 <body>
 	<div id="container">
-		<?php if ($cart = $this->cart->contents()): ?>
-        <div id="cart" class="container_12 clearfix">
-            <table>
-            <caption>Shopping Cart</caption>
-            <thead>
-                <tr>
-                    <th>Item Name</th>
-                    <th>Option</th>
-                    <th>Price</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <?php foreach ($cart as $item): ?>
-                <tr>
-                    <td><?php echo $item['name']; ?></td>
-                    <td>
-                        <?php if ($this->cart->has_options($item['rowid'])) {
-                            foreach ($this->cart->product_options($item['rowid']) as $option => $value) {
-                                echo $option . ": <em>" . $value . "</em>";
-                            }
-                            
-                        } ?>
-                    </td>
-                    <td>$<?php echo $item['subtotal']; ?></td>
-                    <td class="remove">
-                        <?php echo anchor('shop/remove/'.$item['rowid'],'X'); ?>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-            <tr class="total">
-                <td colspan="2"><strong>Total</strong></td>
-                <td>$<?php echo $this->cart->total(); ?></td>
-            </tr>
-            </table>		
-        </div>
-        <?php endif; ?>
-        <header class="container_12 clearfix">
+        <header class="clearfix">
+            <section id="cartholder">
+                <?php if ($cart = $this->cart->contents()): ?>
+                <div id="cart" class="container_12 clearfix">
+                    <table>
+                    <caption>Shopping Cart</caption>
+                    <thead>
+                        <tr>
+                            <th>Item Name</th>
+                            <th>Option</th>
+                            <th>Price</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <?php foreach ($cart as $item): ?>
+                        <tr>
+                            <td><?php echo $item['name']; ?></td>
+                            <td>
+                                <?php if ($this->cart->has_options($item['rowid'])) {
+                                    foreach ($this->cart->product_options($item['rowid']) as $option => $value) {
+                                        echo $option . ": <em>" . $value . "</em>";
+                                    }
+                                    
+                                } ?>
+                            </td>
+                            <td>$<?php echo $item['subtotal']; ?></td>
+                            <td class="remove">
+                                <?php echo anchor('shop/remove/'.$item['rowid'],'X'); ?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    <tr class="total">
+                        <td colspan="2"><strong>Total</strong></td>
+                        <td>$<?php echo $this->cart->total(); ?></td>
+                    </tr>
+                    </table>		
+                </div>
+                <?php endif; ?>
+            </section>
             <?php include("masthead.php"); ?>
         </header>
         <div id="main" role="main">
 			<section id="nln" class="container_12">
-            	<p>Our collection of <a href="">video</a>, <a href="">audio</a> and still <a href="">images</a> is available for you to download and use freely on a rights-free basis. We provide this service at a small-cost, with the aim of promoting Welsh culture.</p>
-			</section>     
-            <section id="productions" class="container_12 clearfix">
-            	<h2>Radio Production</h2>
-				<?php foreach ($production as $product): ?>
-                <?php echo form_open('shop/add_production'); ?>
-                <article class="clearfix">
-                	<div class="grid_8 alpha">
-                        <h3><?php echo $product->name; ?></h3>
-                        <p><?php echo $product->description ?></p>
-                        <audio>
-                        </audio>
-                        <p><a href="/shop/production/<?php echo $product->slug; ?>">More info</a></p>
-                        <div class="price">$<?php echo $product->price; ?></div>	
-                        <div class="option">
-                            <?php if ($product->option_name): ?>
-                                <?php echo form_label($product->option_name, 'option_'. $product->id); ?>
-                                <?php echo form_dropdown(
-                                    $product->option_name,
-                                    $product->option_values,
-                                    NULL,
-                                    'id="option_'. $product->id.'"'
-                                ); ?>
-                            <?php endif; ?>
+            	<h2>Our collection of <a href="<?php echo base_url(); ?>shop/assets/video">video</a>, <a href="<?php echo base_url(); ?>shop/assets/audio">audio</a> and still <a href="<?php echo base_url(); ?>shop/assets/images">images</a> are available for you to download and use freely on a rights-free basis. We provide this service at a small-cost, with the aim of promoting Welsh culture.</h2>
+			</section>   
+            <div id="promo">  
+                <section id="productions" class="container_12 clearfix">
+                    <?php foreach ($production as $product): ?>
+                    <?php echo form_open('shop/add_production'); ?>
+                    <article class="clearfix">
+                        <div class="grid_6 alpha">
+                            <div class="production_thumb">
+                                <?php echo img(array(
+                                    'src' => 'assets/images/' . $product->image,
+                                    'class' => 'production_cover',
+                                    'alt' => $product->name
+                                )); ?>
+                            </div>
                         </div>
-						<div class="addtocart"><?php echo form_submit('action', 'Add to Cart'); ?></div>
-
-                    </div>
-                    <div class="grid_4 omega">
-                    	<div class="production_thumb">
-                    	<img src="<?php echo base_url(); ?>img/placeholder.jpg"/>
-                        	<?php echo img(array(
-								'src' => 'images/' . $product->image,
-								'class' => 'thumb',
-								'alt' => $product->name
-							)); ?>
+                        <div class="grid_6 omega">
+                            <h3><?php echo $product->name; ?></h3>
+                            <p><?php echo $product->description ?></p>
+                            <audio>
+                            </audio>
+                            <!-- <p><a href="/shop/production/<?php echo $product->slug; ?>">More info</a></p>-->	
+                            <div class="option">
+                                <?php if ($product->option_name): ?>
+                                    <?php echo form_label($product->option_name, 'option_'. $product->id); ?>
+                                    <?php echo form_dropdown(
+                                        $product->option_name,
+                                        $product->option_values,
+                                        NULL,
+                                        'id="option_'. $product->id.'"'
+                                    ); ?>
+                                <?php endif; ?>
+                            </div>
+                            <div class="addtocart"><?php echo form_submit('action', 'Add to Cart'); ?>&pound;<?php echo $product->price; ?></div>
+    
                         </div>
-                    </div>
-                    <?php echo form_hidden('id', $product->id); ?>
-                    <?php echo form_close(); ?>
-                </article>
-                <?php endforeach; ?>
-            </section>
-            <section id="assets" class="container_12 clearfix">            
-                <h2>Assets</h2>
+                        <?php echo form_hidden('id', $product->id); ?>
+                        <?php echo form_close(); ?>
+                    </article>
+                    <?php endforeach; ?>
+                </section>
+            </div>
+            <section id="assets" class="container_12 clearfix">        
                 <article class="grid_4 alpha">
-                    <h4>Video</h4>
+                    <h4 class="video_text"><a>Video</a></h4>
                     <ul>
                     <?php foreach ($video as $product): ?>
                         <li>
                             <?php echo form_open('shop_assets/add_video'); ?>
                             <div class="name"><?php echo $product->name; ?></div>
-                            <div class="category">Category: <a href="<?php echo base_url(); ?>shop/assets/video">video</a> &nbsp; Tags:<?php echo $product->tag_id; ?></div>
-                            <video controls="controls">
+                            <div class="category">Category: <a href="<?php echo base_url(); ?>shop/assets/video">video</a> &nbsp; Tags:<?php echo $product->tag_id; ?>
+                            
+                            
+                            
+                            
+                              <?php foreach($tags as $tag):?> 
+									<?php if ($tag->tag_id == $product->tag_id): ?>
+                                        	<a href="<?php echo base_url(); ?>shop/assets/categories/<?php echo $tag->tag_id; ?>"><?php echo $tag->name; ?></a>
+									<?php endif; ?>
+							<?php endforeach; ?>
+                            
+                            
+                            
+                            
+                            
+                            
+                            </div>
+                            <video controls="controls" >
                                 <source src="<?php echo base_url(); ?>assets/video/<?php echo $product->sample; ?>.webm" type="video/webm" />
                                 <source src="<?php echo base_url(); ?>assets/video/<?php echo $product->sample; ?>.ogg" type="video/ogg" />
-                                <source src="<?php echo base_url(); ?>assets/video/<?php echo $product->sample; ?>.m4v" type="video/mp4" />
+                                <source src="<?php echo base_url(); ?>assets/video/<?php echo $product->sample; ?>.mp4" type="video/mp4" />
                                 <source src="<?php echo base_url(); ?>assets/video/<?php echo $product->sample; ?>.m4v" type="video/mp4" />
                                 Your browser does not support the video tag.
                             </video>
-                            <div class="price">$<?php echo $product->price; ?></div>
                             <div class="option">
                                 <?php if ($product->option_name): ?>
                                     <?php echo form_label($product->option_name, 'option_'. $product->id); ?>
@@ -149,14 +164,14 @@
                             </div>
                             
                             <?php echo form_hidden('id', $product->id); ?>
-                            <?php echo form_submit('action', 'Add to Cart'); ?>
+                            <?php echo form_submit('action', 'Add to Cart'); ?>&pound;<?php echo $product->price; ?>
                             <?php echo form_close(); ?>
                         </li>
                     <?php endforeach; ?>
                     </ul>
                 </article>
                 <article class="grid_4">
-                    <h4>Audio</h4>
+                    <h4 class="audio_text"><a>Audio</a></h4>
                     <ul>
 						<?php foreach ($audio as $product): ?>
                         <li>
@@ -166,33 +181,31 @@
                             <audio controls="controls">
                               <source src="<?php echo base_url(); ?>assets/audio/<?php echo $product->sample; ?>" type="audio/wav" />
                             	Your browser does not support the audio element.
-                            </audio>                             
-                            <div class="price">$<?php echo $product->price; ?></div>                          
+                            </audio>                                                      
                             <?php echo form_hidden('id', $product->id); ?>
-                            <?php echo form_submit('action', 'Add to Cart'); ?>
+                            <?php echo form_submit('action', 'Add to Cart'); ?>&pound;<?php echo $product->price; ?>
                             <?php echo form_close(); ?>
                         </li>
                         <?php endforeach; ?>
                     </ul>
                 </article>
                 <article class="grid_4 omega">
-                    <h4>Images</h4>
+                    <h4 class="images_text"><a>Images</a></h4>
                     <ul>
 						<?php foreach ($images as $product): ?>
-                        <li>
+                        <li class="clearfix">
                             <?php echo form_open('shop_assets/add_images'); ?>
-                            <div class="name"><?php echo $product->name; ?></div>
-                            <div class="category">Category: <a href="<?php echo base_url(); ?>shop/assets/audio">audio</a> &nbsp; Tags:<?php echo $product->tag_id; ?></div>
-                            <div class="thumb">
+                            <div class="thumb_sample">
                             <?php echo img(array(
                                 'src' => 'assets/images/' . $product->sample,
                                 'class' => 'thumb',
                                 'alt' => $product->name,
                             )); ?>				
                             </div>
-                            <div class="price">$<?php echo $product->price; ?></div>
+                            <div class="name"><?php echo $product->name; ?></div>
+                            <div class="category">Category: <a href="<?php echo base_url(); ?>shop/assets/images">images</a> &nbsp; Tags:<?php echo $product->tag_id; ?></div>
                             <?php echo form_hidden('id', $product->id); ?>
-                            <?php echo form_submit('action', 'Add to Cart'); ?>
+                            <?php echo form_submit('action', 'Add to Cart'); ?>&pound;<?php echo $product->price; ?>
                             <?php echo form_close(); ?>
                         </li>
                         <?php endforeach; ?>
@@ -200,8 +213,10 @@
                 </article>
             </section>        
         </div>
-        <footer class="container_12">
-    	Copyright Damage Ltd 2011
+        <footer>
+        	<div class="container_12 clearfix">
+    			<p>Copyright Damage un Ltd 2011</p>
+            </div>
         </footer>
   </div> <!--! end of #container -->
 

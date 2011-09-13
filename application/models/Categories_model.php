@@ -1,5 +1,5 @@
 <?php
-class Categories_model extends CI_Model {
+class categories_model extends ci_model {
 	
 	function get_all() {
 		
